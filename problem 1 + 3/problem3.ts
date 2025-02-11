@@ -56,10 +56,10 @@ const WalletPage: React.FC<Props> = (props: Props) => {
 */
   
   /*
-    Đoạn code trên có 1 số điểm:
-1. Biến chưa được định nghĩa (lhsPriority) => thay bằng balancePriority vì nó đã được tính toán từ trước.
-2. Đoạn code sử dụng .filter() trước rồi mới .sort() khiến mảng balances bị duyệt hai lần, gây lãng phí tài nguyên => sử dụng .reduce() hoặc thực hiện trong cùng một .sort()
-3. Dependency [balances, prices] không cần thiết: prices không ảnh hưởng đến sortedBalances, nên không cần đưa vào dependency
+    The above code has some points:
+1. The variable is not defined (lhsPriority) => replace it with balancePriority because it has been calculated before.
+2. The code uses .filter() first and then .sort(), causing the balances array to be scanned twice, wasting resources => use .reduce() or do it in the same .sort()
+3. Dependency [balances, prices] is not necessible: prices do not affect sortedBalances, so there is no need to include it in the dependency
   */
   
   // code fix:
@@ -89,18 +89,18 @@ const WalletPage: React.FC<Props> = (props: Props) => {
   */
   const rows = sortedBalances.map((balance: FormattedWalletBalance, index: number) => {
     // const usdValue = prices[balance.currency] * balance.amount;
-    // 5. => Nếu prices không chứa tỷ giá của balance.currency, phép nhân prices[balance.currency] * balance.amount sẽ trả về NaN => kiểm tra giá trị trước khi sử dụng
+    // 5. => If prices does not contain the balance.currency rate, prices[balance.currency] * balance.amount will return NaN => check the value before using
     const usdValue = (prices[balance.currency] ?? 0) * balance.amount;
     return (
       <WalletRow 
         className={classes.row}
         // 6. key={index}
-        // => có thể gây lỗi nếu thứ tự phần tử thay đổi => dùng balance.currency
+        // => may cause error if element order changes => use balance.currency
         key={balance.currency}
         amount={balance.amount}
         usdValue={usdValue}
         // formattedAmount={balance.formatted} 
-        // => thay thế bằng code bên dưới như nói ở số 4
+        // => replace with the code below as mentioned in number 4
         formattedAmount={balance.amount.toFixed()}  
       />
     )

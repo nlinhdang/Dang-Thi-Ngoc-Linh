@@ -10,20 +10,20 @@ function CurrencyDropdown({ sendChoseToRate }) {
   });
 
   const [currencies, setCurrencies] = useState([]);
-  const dropdownRef = useRef(null); // kiểm tra click bên ngoài
+  const dropdownRef = useRef(null);
 
-  // đóng mở menu currency
+  // CLOSE/OPEN currency dropdown menu
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
   };
 
-  //chọn currency và đưa và state setSelectedCurrency
+  //select currency and put in state setSelectedCurrency
   const selectCurrency = (currency, token) => {
     setSelectedCurrency({ currency, token });
     setIsOpen(false); // Đóng menu sau khi chọn
   };
 
-//fetch data lất thông tin currency và token path
+//fetch data get currency and token path
 useEffect(() => {
   fetch("/prices.json")
     .then((res) => res.json())
@@ -34,13 +34,13 @@ useEffect(() => {
         const { currency, price, date } = item;
         let tokenPath = `/assets/tokens/${currency}.svg`;
 
-        // Kiểm tra ảnh có hợp lệ không (không phải text/html)
+        // Check if image is valid (not text/html)
         const isValidImage = await fetch(tokenPath)
           .then((res) => res.headers.get("Content-Type")?.startsWith("image"))
           .catch(() => false);
 
-        // Nếu ảnh hợp lệ mới thêm vào danh sách
-        // Nếu currency bị trùng thì chọn date lớn nhất, nếu trùng date thì lấy cái thứ mới nhất tìm thấy
+        // If valid image then add to list
+        // If currency is duplicate then choose oldest date, if duplicate date then take newest found
         if (isValidImage) {
           if (!currencyMap[currency] || new Date(currencyMap[currency].date) <= new Date(date)) {
             currencyMap[currency] = { ...item, token: tokenPath };
@@ -54,7 +54,7 @@ useEffect(() => {
 }, []);
 
 
-  // sự kiện click bên ngoài để đóng menu
+  // when click outside, dropdown menu close
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {

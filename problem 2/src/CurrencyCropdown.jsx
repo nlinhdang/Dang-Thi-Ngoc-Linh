@@ -12,15 +12,18 @@ function CurrencyDropdown({ sendChoseToRate }) {
   const [currencies, setCurrencies] = useState([]);
   const dropdownRef = useRef(null); // kiểm tra click bên ngoài
 
+  // đóng mở menu currency
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
   };
 
+  //chọn currency và đưa và state setSelectedCurrency
   const selectCurrency = (currency, token) => {
     setSelectedCurrency({ currency, token });
     setIsOpen(false); // Đóng menu sau khi chọn
   };
 
+//fetch data lất thông tin currency và token path
 useEffect(() => {
   fetch("/prices.json")
     .then((res) => res.json())
@@ -37,6 +40,7 @@ useEffect(() => {
           .catch(() => false);
 
         // Nếu ảnh hợp lệ mới thêm vào danh sách
+        // Nếu currency bị trùng thì chọn date lớn nhất, nếu trùng date thì lấy cái thứ mới nhất tìm thấy
         if (isValidImage) {
           if (!currencyMap[currency] || new Date(currencyMap[currency].date) <= new Date(date)) {
             currencyMap[currency] = { ...item, token: tokenPath };

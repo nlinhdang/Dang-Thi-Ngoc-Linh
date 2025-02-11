@@ -3,6 +3,7 @@ import arrow from "/assets/exchange.png";
 import CurrencyDropdown from "./CurrencyCropdown";
 
 const Input = () => {
+  // chỉ cập nhật giá trị khi user click Swap
   const sendInputRef = useRef(null);
   const receiveInputRef = useRef(null);
 
@@ -25,6 +26,7 @@ const Input = () => {
   const [rate, setRate] = useState(choseInput.price / choseOutput.price);
   const [isLoading, setIsLoading] = useState(false);
 
+  //xử lý khi người dùng chọn currency
   const handleChose = (currency, price, type) => {
     if (type === "input") {
       setChoseInput({ currency, price });
@@ -35,6 +37,7 @@ const Input = () => {
     }
   };
 
+  // check input ko bao gồm chữ và ký tự khác số
   const validateInput = (value) => {
     const rawValue = value.replace(/,/g, "");
     if (/^\d*$/.test(rawValue)) {
@@ -46,6 +49,7 @@ const Input = () => {
     }
   };
 
+  //nếu có thay đổi: lấy giá trị người dùng vừa nhập, cập nhật setLastEdited là send hoặc receive để tính tỉ giá
   const handleSendChange = (e) => {
     if (validateInput(e.target.value)) {
       sendInputRef.current.value = e.target.value;
@@ -59,10 +63,10 @@ const Input = () => {
       setLastEdited("receive");
     }
   };
-
+    // set thời gian đợi 3s sau khi click Swap mới hiển thị kết quả
+    // số lượng cũng đc hiển thị theo format có dấu phẩy theo hàng nghìn, hàng triệu
   const handleClick = () => {
     setIsLoading(true);
-
     setTimeout(() => {
       const sendValue = sendInputRef.current.value.replace(/,/g, "");
       const receiveValue = receiveInputRef.current.value.replace(/,/g, "");

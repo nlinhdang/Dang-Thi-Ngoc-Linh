@@ -1,0 +1,149 @@
+.container {
+  
+  margin: auto
+}
+
+h1 {
+  color: rgb(159, 232, 112);
+  font-size: 4rem;
+  padding-bottom: 3rem;
+  text-align: center;
+}
+
+label {
+  display: block;
+  font-size: 1rem;
+  padding-bottom: 0.7rem;
+}
+
+.input-container,
+.output-container {
+  position: relative;
+}
+input {
+  padding: 1rem 5rem 1rem 1rem;
+  border: 1px solid rgb(168, 168, 168);
+  border-radius: 0.5rem;
+  margin-bottom: 1.2rem;
+  position: relative;
+}
+
+.white-container{
+  padding: 2.5rem;
+  border-radius: 2rem;
+  background-color: white;
+}
+
+.exchange-section,
+.rate-section {
+  display: flex;
+  align-items: center;
+}
+
+.rate-section {
+  align-items: normal;
+}
+
+.rate,
+input,
+output,
+.currency-label span {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+button {
+  display: block;
+  margin-left: auto;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 3rem;
+  background-color: rgb(159, 232, 112);
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  color: white;
+  background-color: rgb(2, 51, 2);
+}
+.arrow {
+  width: 1.3rem;
+  margin: 0 1.5rem
+}
+.arrow-down {
+  width: 1.3rem;
+}
+.currency-label {
+  position: absolute;
+  top: -4.2rem;
+  right: 0.5rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.token {
+  width: 1.7rem;
+}
+.currency {
+  padding: 0 1rem 0 0.5rem 
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  left: 65%;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 99;
+  padding: 0.4rem
+}
+li {
+  list-style: none;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+}
+li:hover {
+  border: 1px solid rgb(168, 168, 168);
+  border-radius: 0.5rem;
+}
+.token-dropdown {
+  width: 1.7rem;
+}
+.currency-dropdown {
+  font-size: 1.2rem;
+  padding-left: 0.5rem;
+}
+
+.tick {
+  width: 1rem;
+  margin-left: auto;
+  opacity: 0;
+}
+
+.tick.active {
+  opacity: 1;
+}
+
+.error-messenge {
+  margin-bottom: 1.2rem
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  color: black
+}
+
+button:disabled.can-not-swap:hover {
+  background-color: #ccc;
+  cursor: not-allowed;
+  color: black
+}
